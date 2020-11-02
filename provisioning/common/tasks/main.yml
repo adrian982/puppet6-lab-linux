@@ -1,0 +1,4 @@
+---
+- name: "Include Red Hat OS family tasks"
+  include: redhat_common.yml
+  when: ansible_os_family == 'RedHat'

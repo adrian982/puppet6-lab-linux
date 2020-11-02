@@ -1,0 +1,25 @@
+---
+- name: allow ssh logon with password
+  replace:
+    dest: /etc/ssh/sshd_config
+    regexp: ^PasswordAuthentication no
+    replace: ^PasswordAuthentication yes
+  notify: restart sshd
+
+- name: Install a list of packages (suitable replacement for 2.11 loop deprecation warning)
+  yum:
+    name: vim
+    state: present
+
+- name: Install a list of packages with a list variable
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - tcpdump
+    - net-tools
+
+- name: Install the puppet release from a remote repo
+  yum:
+    name: https://yum.puppet.com/puppet6-release-el-7.noarch.rpm
+    state: present
